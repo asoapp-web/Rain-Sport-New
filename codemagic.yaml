@@ -1,21 +1,21 @@
 workflows:
-  rain-sport-workflow:
-    name: RainSport
+  sweet-bakery-workflow:
+    name: SweetBakery
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      app_store_connect: RainSport API
+      app_store_connect: SweetBakery API  # Замените на реальный App Store Connect ID для SweetBakery
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.raintrain.trinapp
+        bundle_identifier: com.SweetBakery
       vars:
-        BUNDLE_ID: "com.raintrain.trinapp"
-        XCODE_SCHEME: "RainSport"
-        APP_STORE_APPLE_ID: 6757008025
-        # Жестко задаем новые версии
-        NEW_VERSION: "1.1"  # Укажите нужную версию
-        NEW_BUILD: "1"      # Укажите нужный билд-номер
+        BUNDLE_ID: "com.SweetBakery"
+        XCODE_SCHEME: "SweetBakery"
+        APP_STORE_APPLE_ID: 6757008025  # Замените на реальный Apple ID приложения SweetBakery
+        # Жестко задаем новые версии для SweetBakery
+        NEW_VERSION: "1.1"  # Укажите нужную версию для SweetBakery
+        NEW_BUILD: "1"      # Укажите нужный билд-номер для SweetBakery
       xcode: latest
     scripts:
       - name: Set up provisioning profiles settings on Xcode project
@@ -81,7 +81,7 @@ workflows:
           for CONFIG in Debug Release; do
             echo "Updating $CONFIG configuration..."
             xcodebuild \
-              -project "RainSport.xcodeproj" \
+              -project "SweetBakery.xcodeproj" \
               -scheme "$XCODE_SCHEME" \
               -configuration $CONFIG \
               MARKETING_VERSION="$NEW_VERSION" \
@@ -109,7 +109,7 @@ workflows:
           fi
           
           echo "2. From xcodebuild settings:"
-          xcodebuild -project "RainSport.xcodeproj" \
+          xcodebuild -project "SweetBakery.xcodeproj" \
             -scheme "$XCODE_SCHEME" \
             -configuration Release \
             -showBuildSettings 2>/dev/null | grep -E "VERSION|BUILD" | head -10 || echo "  No build settings found"
@@ -128,7 +128,7 @@ workflows:
           
           # Собираем с явным указанием версий
           xcode-project build-ipa \
-            --project "RainSport.xcodeproj" \
+            --project "SweetBakery.xcodeproj" \
             --scheme "$XCODE_SCHEME"
           
           # Проверяем что собралось
